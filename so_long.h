@@ -6,7 +6,7 @@
 /*   By: ubegona <ubegona@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 09:12:11 by ubegona           #+#    #+#             */
-/*   Updated: 2022/12/06 18:54:11 by ubegona          ###   ########.fr       */
+/*   Updated: 2022/12/08 13:08:09 by ubegona          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "stdlib.h"
 # include "mlx.h"
 # include "stdio.h"
+# include "time.h"
 # define WINDOW_WIDHT 1920
 # define WINDOW_HEIGHT 1080
 
@@ -31,6 +32,7 @@ typedef struct s_img
 	int		endian;
 	void	*mlx;
 	void	*win;
+	int		pos[2];
 }				t_img;
 
 // ********************************* sl_main.c ***************************
