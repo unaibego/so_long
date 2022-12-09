@@ -6,7 +6,7 @@
 /*   By: ubegona <ubegona@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 09:12:11 by ubegona           #+#    #+#             */
-/*   Updated: 2022/12/08 13:08:09 by ubegona          ###   ########.fr       */
+/*   Updated: 2022/12/09 14:40:50 by ubegona          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SO_LONG_H
 
 # include "unistd.h"
+ #include "fcntl.h"
 # include "stdlib.h"
 # include "mlx.h"
 # include "stdio.h"
@@ -23,19 +24,35 @@
 
 // ********************************* estruktura ********************************
 
-typedef struct s_img
+typedef struct s_data
 {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_lenght;
-	int		endian;
 	void	*mlx;
 	void	*win;
 	int		pos[2];
+	int		width;
+	int		height;
+	char	*map;
+	int		len;
+}				t_data;
+
+typedef struct s_img
+{
+	void	*img_Horma[8];
+	void	*img_Lurra;
+	void	*img_Atea;
+	void	*img_Objeto;
+	void	*img_Coleccionable;
+	void	*img_Robot;
 }				t_img;
 
-// ********************************* sl_main.c ***************************
 
+
+
+// ********************************* make_map.c ***************************
+t_img	save_img();
+void	make_ground(t_data data, t_img img);
+t_data	map_size(t_data data);
+void	make_corner(t_data data, t_img img);
+void	make_obj(t_data data, t_img img);
 
 #endif

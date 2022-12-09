@@ -6,12 +6,12 @@
 #    By: ubegona <ubegona@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/30 08:54:44 by ubegona           #+#    #+#              #
-#    Updated: 2022/12/02 09:17:28 by ubegona          ###   ########.fr        #
+#    Updated: 2022/12/09 11:17:03 by ubegona          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 OBJS = $(SRCS:.c=.o)
-SRCS =  main.c
+SRCS =  main.c make_back.c
 CC = gcc
 NAME = so_long
 CFLAGS = -Wall -Wextra -Werror 
