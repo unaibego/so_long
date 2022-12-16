@@ -6,7 +6,7 @@
 /*   By: ubegona <ubegona@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 09:12:11 by ubegona           #+#    #+#             */
-/*   Updated: 2022/12/16 09:26:34 by ubegona          ###   ########.fr       */
+/*   Updated: 2022/12/16 14:00:19 by ubegona          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,14 @@ typedef struct s_data
 	int		width;
 	int		height;
 	char	*map;
-	int		len;
+	int		line;
 	t_img	img;
 }				t_data;
 
 // ********************************* make_move.c ***************************
-void	make_ground(t_data data, t_img img);
-void	make_corner(t_data data, t_img img);
-void	make_obj(t_data data, t_img img);
-int		are_there_coins(t_data *data, t_img *img);
-int		are_there_door(t_data data, t_img *img);
-void	make_enemy(t_data data, t_img img, int a);
 void	enemy_move(t_data *data);
 int		collition(t_data data, t_img *img, int next, int c);
-int		fail(t_data data, t_img *img, int next);
+int		moves(int keycode, t_data *data);
 // ********************************* save_data.c ***************************
 t_data	map_size(t_data data);
 t_img	save_img(t_data data);
@@ -70,8 +64,14 @@ char	*ft_strjoin(char const *s1, char s2, char const *s3);
 size_t	ft_strlen(const char *str);
 char	*ft_strdup(const char *s1);
 void	strchng(char *str, int a, int b);
+void	ft_putstr_fd(char *s, int fd);
 // ********************************* errors.c ***************************
 char	*next_step(char *test_map, int pos, int lar);
 void	find_out(t_data data);
-
+void	is_rectangle(t_data data);
+void	error_mapa_char(t_data data);
+// ********************************* check_map.c ***************************
+int		fail(t_data data, t_img *img, int next);
+int		are_there_coins(t_data *data, t_img *img);
+int		are_there_door(t_data data, t_img *img);
 #endif

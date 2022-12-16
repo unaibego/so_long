@@ -6,7 +6,7 @@
 /*   By: ubegona <ubegona@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 10:02:19 by ubegona           #+#    #+#             */
-/*   Updated: 2022/12/15 10:11:14 by ubegona          ###   ########.fr       */
+/*   Updated: 2022/12/16 12:16:37 by ubegona          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,12 @@ char	*ft_strdup(const char *s1)
 	}
 	p[i] = '\0';
 	return (p);
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	unsigned int	len;
+
+	len = ft_strlen(s);
+	write(fd, s, len);
 }

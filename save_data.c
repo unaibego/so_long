@@ -6,7 +6,7 @@
 /*   By: ubegona <ubegona@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 10:08:48 by ubegona           #+#    #+#             */
-/*   Updated: 2022/12/16 09:22:55 by ubegona          ###   ########.fr       */
+/*   Updated: 2022/12/16 11:08:45 by ubegona          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,24 @@ t_img	save_img(t_data data)
 
 t_data	map_size(t_data data)
 {
-	int		fd;
+	int	fd;
+	int	len;
 
-	data.height = 0;
+	data.line = 0;
 	data.map = malloc(sizeof(char) * 100000);
 	fd = open("map.txt", O_RDONLY);
-	data.len = read(fd, data.map, 10000000);
+	len = read(fd, data.map, 10000000);
 	free(data.map);
 	close(fd);
-	data.map = malloc(sizeof(char) * data.len + 1);
+	data.map = malloc(sizeof(char) * len + 1);
 	fd = open("map.txt", O_RDONLY);
-	read(fd, data.map, data.len);
-	data.map[data.len] = '\0';
-	while (data.map[data.height] && data.map[data.height] != '\n')
-		data.height++;
-	data.width = (data.len / data.height) * 64;
-	data.height = data.height * 64;
+	read(fd, data.map, len);
+	data.map[len] = '\0';
+	while (data.map[data.line] && data.map[data.line] != '\n')
+		data.line++;
+	data.width = (len / data.line) * 64;
+	data.height = data.line * 64;
+	data.line++;
 	return (data);
 
 }

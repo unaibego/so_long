@@ -6,7 +6,7 @@
 /*   By: ubegona <ubegona@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 11:50:37 by ubegona           #+#    #+#             */
-/*   Updated: 2022/12/15 13:46:02 by ubegona          ###   ########.fr       */
+/*   Updated: 2022/12/16 14:09:48 by ubegona          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,71 @@ void	find_out(t_data data)
 {
 	char	*test_map;
 	int		pos;
-	int		lar;
 
 	pos = 0;
-	lar = 0;
 	test_map = ft_strdup(data.map);
 	while (data.map[pos] != 'E')
 		pos++;
-	while (data.map[lar - 1] != '\n')
-		lar++;
-	test_map = next_step(test_map, pos, lar);
+	test_map = next_step(test_map, pos, data.line);
 	pos = 0;
 	while (test_map[pos])
 	{
-		if (test_map[pos] == 'P' || test_map[pos] == 'E'
-			|| test_map[pos] == 'C')
+		if (test_map[pos] == 'P' && test_map[pos] == 'E'
+			&& test_map[pos] == 'C')
 		{
-			write(1, "error\n", 6),
+			ft_putstr_fd("Error mapa: No hay salida\n", 0);
 			exit (0);
 		}
 		pos++;
+	}
+	is_rectangle(data);
+	error_mapa_char(data);
+}
+
+void	is_rectangle(t_data data)
+{
+	int	i;
+
+	i = 0;
+	while (data.map[i])
+	{
+		if ((i + 1) % data.line == 0 && data.map[i] != '\n')
+		{
+			ft_putstr_fd("Error mapa: No es rectangular\n", 0);
+			exit (0);
+		}
+		i++;
+	}
+}
+
+void	error_mapa_char(t_data data)
+{
+	int	i;
+	int	countp;
+	int	counte;
+
+	i = 0;
+	countp = 0;
+	counte = 0;
+	while (data.map[i])
+	{
+		if (data.map[i] != 'E' && data.map[i] != 'C' && data.map[i] != 'P'
+			&& data.map[i] != 'W' && data.map[i] != '0'
+			&& data.map[i] != '1' && data.map[i] != '\n')
+		{
+			printf("%c\n", data.map[i]);
+			ft_putstr_fd("Error mapa: Caracteres no validos\n", 0);
+			exit (0);
+		}
+		if (data.map[i] == 'P')
+			countp++;
+		if (data.map[i] == 'E')
+			counte++;
+		if (countp == 2)
+		{
+			ft_putstr_fd("Error mapa: Caracteres no validos\n", 0);
+			exit (0);
+		}
+		i++;
 	}
 }
