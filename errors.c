@@ -6,7 +6,7 @@
 /*   By: ubegona <ubegona@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 11:50:37 by ubegona           #+#    #+#             */
-/*   Updated: 2022/12/16 14:09:48 by ubegona          ###   ########.fr       */
+/*   Updated: 2022/12/20 10:47:53 by ubegona          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ void	find_out(t_data data)
 
 	pos = 0;
 	test_map = ft_strdup(data.map);
-	while (data.map[pos] != 'E')
+	while (data.map[pos] != 'P')
 		pos++;
 	test_map = next_step(test_map, pos, data.line);
 	pos = 0;
 	while (test_map[pos])
 	{
-		if (test_map[pos] == 'P' && test_map[pos] == 'E'
+		if (test_map[pos] == 'E' && test_map[pos] == 'P'
 			&& test_map[pos] == 'C')
 		{
 			ft_putstr_fd("Error mapa: No hay salida\n", 0);
@@ -52,7 +52,8 @@ void	find_out(t_data data)
 		pos++;
 	}
 	is_rectangle(data);
-	error_mapa_char(data);
+	error_mapa_char(data, 0, 0);
+	is_map_close(data);
 }
 
 void	is_rectangle(t_data data)
@@ -71,32 +72,49 @@ void	is_rectangle(t_data data)
 	}
 }
 
-void	error_mapa_char(t_data data)
+void	error_mapa_char(t_data data, int countp, int counte)
 {
 	int	i;
-	int	countp;
-	int	counte;
 
 	i = 0;
-	countp = 0;
-	counte = 0;
 	while (data.map[i])
 	{
-		if (data.map[i] != 'E' && data.map[i] != 'C' && data.map[i] != 'P'
+		if (data.map[i] != 'P' && data.map[i] != 'C' && data.map[i] != 'E'
 			&& data.map[i] != 'W' && data.map[i] != '0'
 			&& data.map[i] != '1' && data.map[i] != '\n')
 		{
-			printf("%c\n", data.map[i]);
 			ft_putstr_fd("Error mapa: Caracteres no validos\n", 0);
 			exit (0);
 		}
-		if (data.map[i] == 'P')
-			countp++;
 		if (data.map[i] == 'E')
+			countp++;
+		if (data.map[i] == 'P')
 			counte++;
-		if (countp == 2)
+		if (countp == 2 || counte == 2)
 		{
 			ft_putstr_fd("Error mapa: Caracteres no validos\n", 0);
+			exit (0);
+		}
+		i++;
+	}
+}
+
+void	is_map_close(t_data data)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	len = 0;
+	while (data.map[len])
+		len++;
+	while (data.map[i])
+	{
+		if ((i > (len - data.line) || i < (data.line - 1)
+				|| i % data.line == 0 || (i + 2) % data.line == 0)
+			&& data.map[i] != '1')
+		{
+			ft_putstr_fd("Error mapa: No está cerrado\n", 0);
 			exit (0);
 		}
 		i++;

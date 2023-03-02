@@ -6,7 +6,7 @@
 /*   By: ubegona <ubegona@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 09:21:31 by ubegona           #+#    #+#             */
-/*   Updated: 2022/12/16 11:51:59 by ubegona          ###   ########.fr       */
+/*   Updated: 2022/12/20 10:52:42 by ubegona          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,26 +31,39 @@ int	handle_no_event(t_data *data)
 	return (0);
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
-	t_img	img;
 	t_data	data;
-	int		i;
-	int		j;
 
-	i = 0;
-	j = 0;
+	if (argc != 2)
+		return (ft_putstr_fd("Error mapa: Cantidad de argumentos\n", 0), 0);
 	data.mlx = mlx_init();
-	if (data.mlx == NULL)
-		return (0);
-	data = map_size(data);
+	data = map_size(data, argv[1]);
 	find_out(data);
 	data.win = mlx_new_window(data.mlx, data.height, data.width,
 			"Nire lehenengo leihoa");
-	img = save_img(data);
+	data.img = save_img_0(data);
 	mlx_loop_hook(data.mlx, handle_no_event, &data);
-	data.img = img;
 	mlx_hook(data.win, 2, (1L << 1), moves, &data);
+	mlx_key_hook(data.win, key_destroy, &data);
+	mlx_hook(data.win, 17, 0, destroy, &data);
 	mlx_loop(data.mlx);
 	free(data.mlx);
+}
+
+int	key_destroy(int keycode, t_data *data)
+{
+	if (keycode == 53)
+	{
+		mlx_destroy_window(data->mlx, data->win);
+		exit (0);
+	}
+	return (0);
+}
+
+int	destroy(t_data *data)
+{
+	mlx_destroy_window(data->mlx, data->win);
+	exit (0);
+	return (0);
 }

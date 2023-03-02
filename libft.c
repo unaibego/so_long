@@ -6,7 +6,7 @@
 /*   By: ubegona <ubegona@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 10:02:19 by ubegona           #+#    #+#             */
-/*   Updated: 2022/12/16 12:16:37 by ubegona          ###   ########.fr       */
+/*   Updated: 2022/12/20 10:39:12 by ubegona          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ char	*ft_strjoin(char const *s1, char s2, char const *s3)
 	j = 0;
 	while (s3[j])
 		p[i++] = s3[j++];
-
 	p[i] = '\0';
 	return (p);
 }
